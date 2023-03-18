@@ -16,13 +16,13 @@ const AuthWrapper = ({children, registration = false}) => {
         if (route !== 'login') navigate('/login');
     }
 
-    return (<div className={'min-w-[560px] bg-white rounded-[5px] py-[52px] px-[84px] flex flex-col text-primary'}>
-        <div className={'flex justify-between w-full'}>
+    return (<div className={'w-full max-w-[560px] bg-white rounded-[5px] py-[52px] px-[50px] md:px-[84px] flex flex-col text-primary'}>
+        <div className={'flex justify-between w-full gap-3'}>
             <Button text={'Login'} color={registration ? 'lightSky' : 'sky'}
-                    className={!registration && '!cursor-auto'}
+                    className={`${!registration && '!cursor-auto'} w-full lg:w-fit lg:min-w-[180px]`}
                     onClick={goToLogin}/>
             <Button text={'Register'} color={registration ? 'sky' : 'lightSky'}
-                    className={registration && '!cursor-auto'}
+                    className={`${registration && '!cursor-auto'} w-full lg:w-fit lg:min-w-[180px]`}
                     onClick={goToRegistration}/>
         </div>
 

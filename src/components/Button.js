@@ -27,7 +27,7 @@ const colors = {
 const Button = ({type = 'button', text, onClick, disabled = false, color = 'primary', className = ""}) => {
     return (
         <button type={type}
-                className={`${disabled ? "cursor-auto " + colors[color].bgLight : "cursor-pointer " + colors[color].bgDark} ${colors[color].textColor} min-w-[180px] text-center py-[13px] rounded-[3px] w-fit font-medium text-base ` + className}
+                className={`${disabled ? "cursor-auto " + colors[color].bgLight : "cursor-pointer " + colors[color].bgDark} ${colors[color].textColor} w-fit text-center py-[13px] px-5 rounded-[3px] w-fit font-medium text-base ` + className}
                 {...(!disabled && onClick && {onClick: onClick})}>
             {text}
         </button>

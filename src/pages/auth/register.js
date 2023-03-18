@@ -15,8 +15,8 @@ const Register = () => {
 
     return (
         <div className={'bg-primary text-white'}>
-            <div className={'px-[140px] py-[40px] mx-auto flex flex-col min-h-screen'}>
-                <h1 className={'font-black text-2xl'}>Datacense</h1>
+            <div className={'px-[30px] md:px-[140px] py-[40px] mx-auto flex flex-col min-h-screen'}>
+                <h1 className={'font-black text-2xl text-center md:text-start'}>Datacense</h1>
                 <div className={'flex flex-col items-center justify-center flex-grow'}>
                     <AuthWrapper registration>
                         <Formik
@@ -53,7 +53,7 @@ const Register = () => {
                         >
                             {({errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values}) => (
                                 <form noValidate className={'flex flex-col gap-2 pt-10'} onSubmit={handleSubmit}>
-                                    <h1 className={'font-semibold text-2xl text-center pb-4'}>Login</h1>
+                                    <h1 className={'font-semibold text-2xl text-center pb-4'}>Register</h1>
 
                                     <InputField type={'email'} placeholder={"Email"} name={'email'} value={values.email}
                                                 onBlur={handleBlur}
@@ -70,7 +70,7 @@ const Register = () => {
                                     {errors.submit && <span className={'text-red-500 text-xs'}>{errors.submit}</span>}
 
                                     <Button type={'submit'} disabled={isSubmitting} text={'Register'}
-                                            className={'mx-auto'}/>
+                                            className={'mx-auto min-w-[180px]'}/>
                                 </form>
                             )}
                         </Formik>
