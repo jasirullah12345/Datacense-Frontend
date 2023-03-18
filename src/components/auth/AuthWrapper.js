@@ -16,20 +16,18 @@ const AuthWrapper = ({children, registration = false}) => {
         if (route !== 'login') navigate('/login');
     }
 
-    const submit = () => {
-        console.log('submit');
-    }
-
-    return (
-        <div className={'min-w-[560px] bg-white rounded-[5px] py-[52px] px-[84px] flex flex-col text-primary'}>
-            <div className={'flex justify-between w-full'}>
-                <Button text={'Login'} color={registration ? 'lightSky' : 'sky'} onClick={goToLogin} className={!registration && '!cursor-auto'}/>
-                <Button text={'Register'} color={registration ? 'sky' : 'lightSky'} onClick={goToRegistration} className={registration && '!cursor-auto'}/>
-            </div>
-            {children}
-            <Button text={registration ? 'Register' : 'Login'} onClick={submit}/>
+    return (<div className={'min-w-[560px] bg-white rounded-[5px] py-[52px] px-[84px] flex flex-col text-primary'}>
+        <div className={'flex justify-between w-full'}>
+            <Button text={'Login'} color={registration ? 'lightSky' : 'sky'}
+                    className={!registration && '!cursor-auto'}
+                    onClick={goToLogin}/>
+            <Button text={'Register'} color={registration ? 'sky' : 'lightSky'}
+                    className={registration && '!cursor-auto'}
+                    onClick={goToRegistration}/>
         </div>
-    );
+
+        {children}
+    </div>);
 };
 
 export default AuthWrapper;

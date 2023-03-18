@@ -96,28 +96,20 @@ export const JWTProvider = ({ children }) => {
     });
   };
 
-  const register = async (email, password, firstName, lastName) => {
-    const response = await axios.post('/api/account/register', {
-      email,
-      password,
-      firstName,
-      lastName
+  const register = async (email, password) => {
+    const response = await axios.post('/auth/register', { email, password});
+    const { access_token } = response.data;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
+    const profileResponse = await axios.get('/auth/profile');
+    const user = profileResponse.data;
+    setSession(access_token);
+    dispatch({
+      type: LOGIN,
+      payload: {
+        isLoggedIn: true,
+        user
+      }
     });
-    let users = response.data;
-
-    if (window.localStorage.getItem('users') !== undefined && window.localStorage.getItem('users') !== null) {
-      const localUsers = window.localStorage.getItem('users');
-      users = [
-        ...JSON.parse(localUsers),
-        {
-          email,
-          password,
-          name: `${firstName} ${lastName}`
-        }
-      ];
-    }
-
-    window.localStorage.setItem('users', JSON.stringify(users));
   };
 
   const logout = () => {

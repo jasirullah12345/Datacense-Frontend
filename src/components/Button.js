@@ -24,21 +24,23 @@ const colors = {
     }
 }
 
-const Button = ({text, onClick, disabled = false, color = 'primary', className=""}) => {
+const Button = ({type = 'button', text, onClick, disabled = false, color = 'primary', className = ""}) => {
     return (
-        <div
-            className={`${disabled ? colors[color].bgLight : "cursor-pointer " + colors[color].bgDark} ${colors[color].textColor} min-w-[180px] text-center py-[13px] rounded-[3px] font-medium text-base ` + className}
-            {...(!disabled && {onClick: onClick})}>
+        <button type={type}
+                className={`${disabled ? "cursor-auto " + colors[color].bgLight : "cursor-pointer " + colors[color].bgDark} ${colors[color].textColor} min-w-[180px] text-center py-[13px] rounded-[3px] w-fit font-medium text-base ` + className}
+                {...(!disabled && onClick && {onClick: onClick})}>
             {text}
-        </div>
+        </button>
     );
 };
 
 Button.propTypes = {
     text: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
     color: PropTypes.string,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    type: PropTypes.string,
+    className: PropTypes.string
 };
 
 export default Button;
