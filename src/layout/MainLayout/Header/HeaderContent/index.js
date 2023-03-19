@@ -10,12 +10,17 @@ const HeaderContent = () => {
 
     const pageTitles = useMemo(() => ({
         '/': 'Dashboard',
+        '/catalog': 'Catalog',
+        '/blogs': 'Blogs',
+        '/pages': 'Pages',
+        '/payment': 'Payments',
         '/users': 'All Users',
-        '/users/new': 'Add Users'
+        '/users/new': 'Add Users',
+        '/profile': 'Profile'
     }), []);
 
     useEffect(() => {
-      setTitle(pageTitles[location.pathname])
+        setTitle(pageTitles[location.pathname])
     }, [location, pageTitles]);
 
 
