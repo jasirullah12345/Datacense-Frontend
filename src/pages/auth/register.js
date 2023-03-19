@@ -7,6 +7,7 @@ import useAuth from "hooks/useAuth";
 import {Formik} from "formik";
 import config from "config";
 import * as Yup from 'yup';
+import {capitalize} from "utils/text-formator";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Register = () => {
     return (
         <div className={'bg-primary text-white'}>
             <div className={'px-[30px] md:px-[140px] py-[40px] mx-auto flex flex-col min-h-screen'}>
-                <h1 className={'font-black text-2xl text-center md:text-start'}>Datacense</h1>
+                <h1 className={'font-black text-2xl text-center md:text-start'}>{capitalize(process.env.REACT_APP_APP_NAME)}</h1>
                 <div className={'flex flex-col items-center justify-center flex-grow'}>
                     <AuthWrapper registration>
                         <Formik
