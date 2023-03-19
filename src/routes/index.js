@@ -11,6 +11,10 @@ import {authRoutes} from "./auth";
 import Loadable from "../components/Loadable";
 
 const Dashboard = Loadable(lazy(() => import('pages/dashboard')));
+const Catalog = Loadable(lazy(() => import('pages/catalogs')));
+const Blogs = Loadable(lazy(() => import('pages/blogs')));
+const Pages = Loadable(lazy(() => import('pages/pages')));
+const Payments = Loadable(lazy(() => import('pages/payments')));
 const MaintenanceError = Loadable(lazy(() => import('pages/maintenance/404')));
 
 export default function ThemeRoutes() {
@@ -26,6 +30,22 @@ export default function ThemeRoutes() {
                 {
                     path: "/",
                     element: <Dashboard/>,
+                },
+                {
+                    path: "/catalog",
+                    element: <Catalog/>,
+                },
+                {
+                    path: "/blogs",
+                    element: <Blogs/>,
+                },
+                {
+                    path: "/pages",
+                    element: <Pages/>,
+                },
+                {
+                    path: "/payment",
+                    element: <Payments/>,
                 },
                 ...usersRoutes,
             ]

@@ -11,6 +11,9 @@ import Loadable from "../components/Loadable";
 const AuthLogin = Loadable(lazy(() => import('pages/auth/login')));
 const AuthRegister = Loadable(lazy(() => import('pages/auth/register')));
 
+// Other Pages
+const Profile = Loadable(lazy(() => import('pages/auth/profile')));
+
 export const authRoutes = [
     {
         element: (
@@ -36,10 +39,10 @@ export const authRoutes = [
             </AuthGuard>
         ),
         children: [
-            // {
-            //     path: '/profile',
-            //     element: <Profile/>
-            // }
+            {
+                path: '/profile',
+                element: <Profile/>
+            }
         ]
     }
 ];

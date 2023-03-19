@@ -7,7 +7,7 @@ const MainLayout = () => {
     return (
         <div className={'flex h-screen w-full'}>
             <Drawer/>
-            <div className={'flex flex-col'}>
+            <div className={'flex flex-col gap-[26px] flex-grow py-[26px] px-[30px]'}>
                 <Header/>
                 <Outlet/>
             </div>
