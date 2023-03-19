@@ -17,9 +17,10 @@ export default function ThemeRoutes() {
     return useRoutes([
         {
             element: (
-                <AuthGuard>
+                // todo enable auth guard
+                // <AuthGuard>
                     <MainLayout/>
-                </AuthGuard>
+                // </AuthGuard>
             ),
             children: [
                 {

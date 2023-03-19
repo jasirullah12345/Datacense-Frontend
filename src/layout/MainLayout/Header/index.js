@@ -1,11 +1,11 @@
 import React from 'react';
 
-const UsesList = () => {
+const Header = () => {
     return (
         <div>
-            Users List
+            Header
         </div>
     );
 };
 
-export default UsesList;
+export default Header;
