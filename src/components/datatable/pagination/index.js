@@ -1,8 +1,9 @@
 import React, {useMemo} from 'react';
 import ArrowLeftIconDark from "assets/icons/ArrowLeft=Dark.svg";
 import ArrowRightIconDark from "assets/icons/ArrowRight=Dark.svg";
+import SelectBox from "../../SelectBox";
 
-const Pagination = ({totalPages, activePage, setPage}) => {
+const Pagination = ({totalPages, activePage, setPage, recordPerPage, setRecordPerPage}) => {
 
     const isLeftDisabled = useMemo(() => {
         return activePage === 1;
@@ -11,6 +12,21 @@ const Pagination = ({totalPages, activePage, setPage}) => {
     const isRightDisabled = useMemo(() => {
         return activePage === totalPages;
     }, [activePage, totalPages])
+
+    const options = [
+        {
+            value: 10,
+            name: '10 records'
+        },
+        {
+            value: 20,
+            name: '20 records'
+        },
+        {
+            value: 50,
+            name: '50 records'
+        }
+    ]
 
     return (<div className={'flex items-center space-x-5'}>
         <div
@@ -33,8 +49,8 @@ const Pagination = ({totalPages, activePage, setPage}) => {
                 <img src={ArrowRightIconDark} alt=""/>
             </div>
         </div>
-        <div>
-            No of records
+        <div className={'w-[200px]'}>
+            <SelectBox options={options} selected={recordPerPage} setSelected={setRecordPerPage}/>
         </div>
     </div>);
 };

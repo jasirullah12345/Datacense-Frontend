@@ -5,7 +5,10 @@ import axios from "utils/axios";
 const UserList = () => {
     const [searchText, setSearchText] = useState("");
     const [totalRecords, setTotalRecords] = useState(0);
-    const [recordPerPage, setRecordPerPage] = useState(10);
+    const [recordPerPage, setRecordPerPage] = useState({
+        value: 10,
+        name: '10 records'
+    });
     const [page, setPage] = useState(1);
     const [rows, setRows] = useState([]);
     const headers = ['id', 'Name', 'Age', 'Veteran']
@@ -17,7 +20,8 @@ const UserList = () => {
     const fetchData = async () => {
         // const response = await axios.get('/users');
         // const data = await response.json();
-        const data = [{
+        const data = [
+            {
             id: 1, name: 'John Doe', age: 25, veteran: true, children: [{
                 id: 3, name: 'John Doe', age: 25, veteran: true, children: [{
                     id: 51, name: 'John Doe', age: 25, veteran: true

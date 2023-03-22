@@ -10,8 +10,8 @@ const Datatable = (props) => {
     const [search, setSearch] = useState(searchText);
 
     const totalPages = useMemo(() => {
-        return Math.ceil(totalRecords / recordPerPage);
-    }, [totalRecords, recordPerPage])
+        return Math.ceil(totalRecords / recordPerPage.value);
+    }, [totalRecords, recordPerPage.value])
 
     const onKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -34,7 +34,7 @@ const Datatable = (props) => {
         <div className={'w-full my-8'}>
             <Table headers={headers} rows={rows}/>
         </div>
-        <Pagination totalPages={totalPages} activePage={page} setPage={setPage}/>
+        <Pagination totalPages={totalPages} activePage={page} setPage={setPage} recordPerPage={recordPerPage} setRecordPerPage={setRecordPerPage}/>
     </div>);
 };
 
