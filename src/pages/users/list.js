@@ -52,7 +52,7 @@ const UserList = () => {
         setRows(data);
     }
 
-    return (<div className={'py-[14px] px-[30px]'}>
+    return (<div className={'py-[14px] lg:px-[30px]'}>
             <Datatable searchText={searchText} setSearchText={setSearchText} headers={headers} rows={rows}
                        totalRecords={totalRecords} recordPerPage={recordPerPage} setRecordPerPage={setRecordPerPage}
                        page={page} setPage={setPage}/>

@@ -23,7 +23,7 @@ const MainLayout = () => {
     return (
         <div className={'flex h-screen w-full relative'}>
             <Drawer isMobile={isMobile} drawerOpened={drawerOpened} setDrawerOpened={setDrawerOpened}/>
-            <div className={'flex flex-col gap-[26px] flex-grow py-[26px] px-[30px]'}>
+            <div className={'flex flex-col gap-[26px] flex-grow overflow-x-hidden py-[26px] px-[30px]'}>
                 <Header isMobile={isMobile} setDrawerOpened={setDrawerOpened}/>
                 <Outlet/>
             </div>

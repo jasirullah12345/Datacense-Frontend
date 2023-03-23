@@ -11,6 +11,7 @@ const InputField = (props) => {
         placeholder,
         error,
         hideDetails = false,
+        small = false,
         className,
         ...otherProps
     } = props;
@@ -19,7 +20,7 @@ const InputField = (props) => {
         <div className={'flex flex-col gap-1 w-full'}>
             {label && <label htmlFor={name} className={'font-medium text-base'}>{label}</label>}
             <input type={type} id={id ? id : name} name={name} placeholder={placeholder}
-                   className={'border-[1px] border-black text-base font-normal py-[13px] px-4 rounded-[3px] ' + className} {...otherProps}/>
+                   className={`border-[1px] border-black font-normal ${small ? 'py-[9px] px-4 text-sm' : 'py-[13px] px-4 text-base'} rounded-[3px] ` + className} {...otherProps}/>
             {!hideDetails && <span className={'text-red-500 text-xs h-4'}>{error}</span>}
         </div>
     );
@@ -32,7 +33,8 @@ InputField.propTypes = {
     placeholder: PropTypes.string,
     error: PropTypes.string,
     hideDetails: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    small: PropTypes.bool,
 };
 
 export default InputField;
