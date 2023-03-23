@@ -15,7 +15,7 @@ const UserList = () => {
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [searchText, recordPerPage, page]);
 
     const fetchData = async () => {
         // const response = await axios.get('/users');
