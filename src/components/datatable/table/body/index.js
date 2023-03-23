@@ -10,7 +10,7 @@ const Body = ({rows}) => {
                 return <tr key={index} className={'border-b-[1px] border-black'}>
                     {Object.values(row).map((item, index) => {
                         return <td key={index} className={'pt-6 pb-[13px] text-center'}>
-                            {item === true ? 'Yes' : item === false ? 'No' : item }
+                            {item }
                         </td>
                     })}
                 </tr>

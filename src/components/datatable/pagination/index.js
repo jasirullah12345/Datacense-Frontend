@@ -28,7 +28,7 @@ const Pagination = ({totalPages, activePage, setPage, recordPerPage, setRecordPe
         }
     ]
 
-    return (<div className={'flex items-center space-x-5'}>
+    return (<div className={'flex items-center justify-center flex-wrap gap-5'}>
         <div
             className={'flex border-[0.5px] border-black divide-x-[1px] divide-black rounded-[5px] overflow-hidden h-10'}>
             <div className={`${!isLeftDisabled && "cursor-pointer"} w-10 flex justify-center items-center`}

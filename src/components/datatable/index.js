@@ -31,7 +31,7 @@ const Datatable = (props) => {
             <img src={SearchIconDark} alt="" onClick={() => setSearchText(search)}
                  className={'absolute right-[16px] top-1/2 -translate-y-1/2 cursor-pointer'}/>
         </div>
-        <div className={'w-full my-8'}>
+        <div className={'w-full my-8 overflow-x-scroll lg:overflow-x-auto'}>
             <Table headers={headers} rows={rows}/>
         </div>
         <Pagination totalPages={totalPages} activePage={page} setPage={setPage} recordPerPage={recordPerPage} setRecordPerPage={setRecordPerPage}/>

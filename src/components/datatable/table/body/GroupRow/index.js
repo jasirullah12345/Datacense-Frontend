@@ -29,7 +29,7 @@ const GroupRow = ({row, level}) => {
                 {row.age}
             </td>
             <td className={'pt-6 pb-[13px] text-center'}>
-                {row.veteran ? 'Yes' : 'No'}
+                {row.veteran}
             </td>
         </tr>
         {opened && row.children.map((child, index) => {
