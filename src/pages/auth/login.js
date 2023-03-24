@@ -62,7 +62,7 @@ const Login = () => {
                                                 value={values.password} onBlur={handleBlur} onChange={handleChange}
                                                 error={Boolean(touched.password) && errors.password}/>
 
-                                    {errors.submit && <span className={'text-red-500 text-xs'}>{errors.submit}</span>}
+                                    {errors.submit && <span className={'text-red-500 text-xs'}>Wrong Credentials</span>}
 
                                     <div className={'font-medium text-base -mt-1 mb-2 text-end'}>
                                         <Link to='/forgot'>Forgot Password?</Link>

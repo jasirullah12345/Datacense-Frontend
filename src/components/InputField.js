@@ -31,7 +31,6 @@ InputField.propTypes = {
     type: PropTypes.string,
     label: PropTypes.string,
     placeholder: PropTypes.string,
-    error: PropTypes.string,
     hideDetails: PropTypes.bool,
     className: PropTypes.string,
     small: PropTypes.bool,

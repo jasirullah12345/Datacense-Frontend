@@ -55,7 +55,7 @@ export const JWTProvider = ({ children }) => {
         if (access_token && verifyToken(access_token)) {
           setSession(access_token);
           axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
-          const response = await axios.get('/auth/profile');
+          const response = await axios.get('/admin/profile');
           const user = response.data;
           dispatch({
             type: LOGIN,
@@ -81,10 +81,10 @@ export const JWTProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const response = await axios.post('/auth/sign-in', { username: email, password });
+    const response = await axios.post('/admin/auth/sign-in', { email, password });
     const { access_token } = response.data;
     axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
-    const profileResponse = await axios.get('/auth/profile');
+    const profileResponse = await axios.get('/admin/profile');
     const user = profileResponse.data;
     setSession(access_token);
     dispatch({
@@ -97,10 +97,10 @@ export const JWTProvider = ({ children }) => {
   };
 
   const register = async (email, password) => {
-    const response = await axios.post('/auth/register', { email, password});
+    const response = await axios.post('/admin/auth/sign-up', { email, password});
     const { access_token } = response.data;
     axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
-    const profileResponse = await axios.get('/auth/profile');
+    const profileResponse = await axios.get('/admin/profile');
     const user = profileResponse.data;
     setSession(access_token);
     dispatch({
