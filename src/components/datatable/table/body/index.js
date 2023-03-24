@@ -8,7 +8,7 @@ const Body = ({rows}) => {
         {rows.map((row, index) => {
             if (!row.children) {
                 return <tr key={index} className={'border-b-[1px] border-black'}>
-                    {Object.values(row).map((item, index) => {
+                    {Object.values(row).slice(1).map((item, index) => {
                         return <td key={index} className={'pt-6 pb-[13px] text-center'}>
                             {item }
                         </td>

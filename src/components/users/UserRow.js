@@ -81,7 +81,7 @@ const UserRow = ({user, setUsers, level, onValidate}) => {
 
     return (
         <div>
-            <div className={'flex items-end gap-[32px] mb-[24px]'} style={{paddingLeft: `${58 * level}px`}}>
+            <div className={'flex items-end gap-[32px] mb-[10px]'} style={{paddingLeft: `${58 * level}px`}}>
                 <InputField placeholder={"Enter ID"} name={'id'} value={item.id} label={'ID'} small
                             onChange={(e) => setItem({...item, id: e.target.value})}
                             error={errors.id}/>
@@ -92,7 +92,7 @@ const UserRow = ({user, setUsers, level, onValidate}) => {
                 <InputField placeholder={"Enter Yes/No"} name={'veteran'} value={item.veteran} label={'Veteran'}
                             small onChange={(e) => setItem({...item, veteran: e.target.value})} error={errors.veteran}/>
                 <Button onClick={addChildren} text={'Add Childrens'}
-                        className={'py-[11px] px-[21px] font-medium text-xs h-fit whitespace-nowrap'}/>
+                        className={'py-[11px] px-[21px] font-medium text-xs h-fit whitespace-nowrap mb-5'}/>
             </div>
             {item.children && item.children.map((child, index) => {
                 return <UserRow key={index} user={child} setUsers={onSetUser} level={level + 1} onValidate={onValidate}/>

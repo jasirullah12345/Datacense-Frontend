@@ -4,8 +4,10 @@ import SelectBox from "components/SelectBox";
 import Button from "components/Button";
 import UserRow from "components/users/UserRow";
 import axios from "utils/axios";
+import {useNavigate} from "react-router-dom";
 
 const NewUser = () => {
+    const navigate = useNavigate();
     const [showSuccessDialog, setShowSuccessDialog] = useState(false);
     const [validators, setValidators] = useState([]);
     const [grandpas, setGrandpas] = useState([
@@ -80,6 +82,7 @@ const NewUser = () => {
         setShowSuccessDialog(true);
         setTimeout(() => {
             setShowSuccessDialog(false);
+            navigate('/users');
         }, 3000);
     }
 
