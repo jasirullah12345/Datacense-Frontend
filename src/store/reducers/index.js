@@ -2,12 +2,12 @@
 import { combineReducers } from 'redux';
 
 // project import
-import snackbar from './snackbar';
+import users from './users';
 
 // ==============================|| COMBINE REDUCERS ||============================== //
 
 const reducers = combineReducers({
-  snackbar,
+  users,
 });
 
 export default reducers;
