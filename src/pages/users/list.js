@@ -8,8 +8,8 @@ const UserList = () => {
     const [searchText, setSearchText] = useState("");
     const [totalRecords, setTotalRecords] = useState(0);
     const [recordPerPage, setRecordPerPage] = useState({
-        value: 10,
-        name: '10 records'
+        value: 5,
+        name: '5 records'
     });
     const [page, setPage] = useState(1);
     const [rows, setRows] = useState([]);

@@ -17,7 +17,7 @@ const persistConfig = {
     key: 'store',
     storage,
     transforms: [
-        // // For Store Encryption in LocalStorage
+        // For Store Encryption in LocalStorage
         encryptTransform({
             secretKey: 'developed-by-jasir-ullah-khan',
             onError: function (error) {

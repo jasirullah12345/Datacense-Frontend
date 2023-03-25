@@ -15,6 +15,10 @@ const Pagination = ({totalPages, activePage, setPage, recordPerPage, setRecordPe
 
     const options = [
         {
+            value: 5,
+            name: '5 records'
+        },
+        {
             value: 10,
             name: '10 records'
         },
