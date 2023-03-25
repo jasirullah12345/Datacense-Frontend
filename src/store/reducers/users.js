@@ -6,6 +6,8 @@ const initialState = {
     error: null,
     users: [],
     usersLoading: false,
+    totalRecords: 0,
+    currentPage: 1,
 };
 
 // ==============================|| SLICE - USERS ||============================== //
@@ -27,6 +29,16 @@ const users = createSlice({
         // SET USERS LOADING
         setUsersLoading(state, action) {
             state.usersLoading = action.payload;
+        },
+
+        // SET TOTAL RECORDS
+        setTotalRecords(state, action) {
+            state.totalRecords = action.payload;
+        },
+
+        // SET CURRENT PAGE
+        setCurrentPage(state, action) {
+            state.currentPage = action.payload;
         }
     }
 });
@@ -35,12 +47,21 @@ export default users.reducer;
 
 // ==============================|| USERS - API CALL ||============================== //
 
-export function getAllUsers() {
+export function getAllUsers(page, limit, search) {
     return async () => {
         dispatch(users.actions.setUsersLoading(true));
         try {
-            const response = await axios.get('/persons');
-            dispatch(users.actions.setUsers(response.data));
+            const {data, totalRecords, currentPage} = (await axios.get('/users',{
+                params: {
+                    page,
+                    limit,
+                    search
+                }
+            })).data;
+
+            dispatch(users.actions.setUsers(data));
+            dispatch(users.actions.setTotalRecords(totalRecords));
+            dispatch(users.actions.setCurrentPage(currentPage));
         } catch (error) {
             dispatch(users.actions.hasError(error));
         }
