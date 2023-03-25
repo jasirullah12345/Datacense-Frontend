@@ -6,6 +6,8 @@ const initialState = {
     error: null,
     users: [],
     usersLoading: false,
+    grandPaUsers: [],
+    grandPaUsersLoading: false,
     totalRecords: 0,
     currentPage: 1,
 };
@@ -39,6 +41,16 @@ const users = createSlice({
         // SET CURRENT PAGE
         setCurrentPage(state, action) {
             state.currentPage = action.payload;
+        },
+
+        // SET GRANDPA USERS
+        setGrandPaUsers(state, action) {
+            state.grandPaUsers = action.payload;
+        },
+
+        // SET GRANDPA USERS LOADING
+        setGrandPaUsersLoading(state, action) {
+            state.grandPaUsersLoading = action.payload;
         }
     }
 });
@@ -66,5 +78,26 @@ export function getAllUsers(page, limit, search) {
             dispatch(users.actions.hasError(error));
         }
         dispatch(users.actions.setUsersLoading(false));
+    };
+}
+
+export function getGrandPa() {
+    return async () => {
+        dispatch(users.actions.setGrandPaUsersLoading(true));
+        try {
+            let grandpas = (await axios.get('/users/with-children')).data.data;
+
+            grandpas = grandpas.map((grandpa) => {
+                return {
+                    value: grandpa._id,
+                    name: grandpa.name
+                }
+            })
+
+            dispatch(users.actions.setGrandPaUsers(grandpas));
+        } catch (error) {
+            dispatch(users.actions.hasError(error));
+        }
+        dispatch(users.actions.setGrandPaUsersLoading(false));
     };
 }

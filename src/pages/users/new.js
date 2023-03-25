@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SuccessDialog from "components/dialogs/Success";
 import SelectBox from "components/SelectBox";
 import Button from "components/Button";
 import UserRow from "components/users/UserRow";
-import axios from "utils/axios";
 import {useNavigate} from "react-router-dom";
+import {dispatch} from "../../store";
+import {getGrandPa} from "../../store/reducers/users";
+import {useSelector} from "react-redux";
 
 const NewUser = () => {
     const navigate = useNavigate();
@@ -14,69 +16,77 @@ const NewUser = () => {
         {
             value: 0,
             name: 'Select Grandpa'
-        },
-        {
-            value: 123,
-            name: 'Jasir Ullah Khan'
-        },
-        {
-            value: 345,
-            name: 'Ali Raza'
         }
     ]);
     const [selectedGrandPa, setSelectedGrandPa] = useState(grandpas[0]);
     const [users, setUsers] = useState({
-            "_id": "1_abc123",
-            "id": "1",
-            "name": "John Doe",
+        "_id": "1_abc123",
+        "id": "1",
+        "name": "John Doe",
+        "age": 25,
+        "veteran": "Yes",
+        "children": [{
+            "_id": "3_def456",
+            "id": "3",
+            "name": "Doe",
             "age": 25,
             "veteran": "Yes",
             "children": [{
-                "_id": "3_def456",
-                "id": "3",
-                "name": "Doe",
+                "_id": "51_ghi789",
+                "id": "51",
+                "name": "John Doe",
+                "age": 25,
+                "veteran": "Yes"
+            },
+                {
+                    "_id": "52_jkl012",
+                    "id": "52",
+                    "name": "John Doe",
+                    "age": 25,
+                    "veteran": "Yes"
+                }
+            ]
+        },
+            {
+                "_id": "4_mno345",
+                "id": "4",
+                "name": "Mr.",
                 "age": 25,
                 "veteran": "Yes",
                 "children": [{
-                    "_id": "51_ghi789",
-                    "id": "51",
-                    "name": "John Doe",
+                    "_id": "5_pqr678",
+                    "id": "5",
+                    "name": "Jasir",
                     "age": 25,
                     "veteran": "Yes"
                 },
                     {
-                        "_id": "52_jkl012",
-                        "id": "52",
-                        "name": "John Doe",
+                        "_id": "6_stu901",
+                        "id": "6",
+                        "name": "Ullah Khan",
                         "age": 25,
                         "veteran": "Yes"
                     }
                 ]
-            },
-                {
-                    "_id": "4_mno345",
-                    "id": "4",
-                    "name": "Mr.",
-                    "age": 25,
-                    "veteran": "Yes",
-                    "children": [{
-                        "_id": "5_pqr678",
-                        "id": "5",
-                        "name": "Jasir",
-                        "age": 25,
-                        "veteran": "Yes"
-                    },
-                        {
-                            "_id": "6_stu901",
-                            "id": "6",
-                            "name": "Ullah Khan",
-                            "age": 25,
-                            "veteran": "Yes"
-                        }
-                    ]
-                }
-            ]
-        });
+            }
+        ]
+    });
+
+    const usersState = useSelector((state) => state.users);
+
+    useEffect(() => {
+        setGrandpas([
+            {
+                value: 0,
+                name: 'Select Grandpa'
+            }].concat(usersState.grandPaUsers));
+    }, [usersState.grandPaUsers]);
+
+
+    useEffect(() => {
+        dispatch(getGrandPa())
+    }, []);
+
 
     const showDialog = () => {
         setShowSuccessDialog(true);
