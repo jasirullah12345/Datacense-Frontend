@@ -5,7 +5,7 @@ import Button from "components/Button";
 import UserRow from "components/users/UserRow";
 import {useNavigate} from "react-router-dom";
 import {dispatch} from "store";
-import {getGrandPa, getUsersWithChildrens} from "store/reducers/users";
+import {createUsers, getGrandPa, getUsersWithChildrens} from "store/reducers/users";
 import {useSelector} from "react-redux";
 
 const NewUser = () => {
@@ -18,14 +18,24 @@ const NewUser = () => {
             name: 'Select Grandpa'
         }
     ]);
-    const [selectedGrandPa, setSelectedGrandPa] = useState(grandpas[0]);
-    const [users, setUsers] = useState({
+    const initialUser = {
         "id": "",
         "name": "",
         "age": 0,
         "veteran": "",
-        "childrens": []
-    });
+        "children": [
+            {
+                "id": "",
+                "name": "",
+                "age": 0,
+                "veteran": "",
+                "children": []
+            }
+        ]
+    };
+    const [selectedGrandPa, setSelectedGrandPa] = useState(grandpas[0]);
+    const [users, setUsers] = useState(initialUser);
+    const [forceRenderCounter, setForceRenderCounter] = useState(0);
 
     const usersState = useSelector((state) => state.users);
 
@@ -39,19 +49,17 @@ const NewUser = () => {
 
     useEffect(() => {
         setUsers(usersState.usersWithChildrens);
+        if (selectedGrandPa.value !== 0) {
+            setValidators([]);
+            setForceRenderCounter(forceRenderCounter + 1);
+        }
     }, [usersState.usersWithChildrens]);
 
     useEffect(() => {
         if (selectedGrandPa.value !== 0) {
             dispatch(getUsersWithChildrens(selectedGrandPa.value))
         } else {
-            setUsers({
-                "id": "",
-                "name": "",
-                "age": 0,
-                "veteran": "",
-                "childrens": []
-            })
+            setUsers(initialUser)
         }
     }, [selectedGrandPa]);
 
@@ -70,17 +78,18 @@ const NewUser = () => {
 
     const saveUsers = async () => {
         let allValid = true;
-        validators.forEach((validatorRef) => {
+        validators.forEach((validatorRef, index) => {
             if (!validatorRef.current()) {
                 allValid = false;
             }
         });
 
         if (allValid) {
-            // await axios.post('/users', users);
+            await dispatch(createUsers(users));
             showDialog();
         }
-    }
+    };
+
 
     const registerValidation = (validatorRef) => {
         setValidators((prevValidators) => {
@@ -103,7 +112,8 @@ const NewUser = () => {
             </div>
 
             <div className={'min-w-full overflow-x-scroll pb-4'}>
-                <UserRow user={users} setUsers={setUsers} level={0} onValidate={registerValidation}/>
+                <UserRow key={forceRenderCounter} user={users} setUsers={(item, index) => setUsers(item)} level={0} index={0}
+                         onValidate={registerValidation}/>
             </div>
 
             {showSuccessDialog && <SuccessDialog message={'All users has been added successfully'}/>}

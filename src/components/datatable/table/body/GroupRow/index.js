@@ -8,7 +8,7 @@ const GroupRow = ({row, level}) => {
 
     return (<>
         <tr className={`border-b-[1px] border-black ${rowColor}`}>
-            {row.children ? <td onClick={() => setOpened(!opened)} className={'cursor-pointer'}>
+            {row?.children.length > 0 ? <td onClick={() => setOpened(!opened)} className={'cursor-pointer'}>
                     <div className={'flex justify-center space-x-1.5'}>
                         <div style={{width: `${level * 30}px`}}/>
                         <span>{row.id}</span>

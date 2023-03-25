@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import InputField from "../InputField";
 import Button from "../Button";
 
-const UserRow = ({user, setUsers, level, onValidate}) => {
+const UserRow = ({user, setUsers, level, onValidate, index}) => {
 
     const [item, setItem] = useState(user);
     const [errors, setErrors] = useState({
@@ -52,24 +52,16 @@ const UserRow = ({user, setUsers, level, onValidate}) => {
     };
 
     useEffect(() => {
-        setItem(user);
-    }, [user]);
-
-
-    useEffect(() => {
         validationRef.current = validate;
         onValidate(validationRef);
     }, [onValidate]);
 
     useEffect(() => {
-        // deep compare to avoid infinite loop
-        if (JSON.stringify(user) !== JSON.stringify(item)) {
-            setUsers(item);
-        }
+        setUsers(item, index);
     }, [item]);
 
     const addChildren = () => {
-        const children = item.children ? item.children : [];
+        let children = [...item.children ? item.children : []];
         children.push({
             id: '',
             name: '',
@@ -80,12 +72,14 @@ const UserRow = ({user, setUsers, level, onValidate}) => {
         setItem({...item, children});
     }
 
-    const onSetUser = (user) => {
-        const updatedChildren = item.children.map(child => {
-            return (child._id ? child._id === user._id : child.id === user.id) ? user : child;
-        });
-        setItem({...item, children: updatedChildren});
-    }
+    const onSetUser = (user, childIndex) => {
+        const children = item.children ? item.children : [];
+
+        // Create a shallow copy of the array and update the child at the specified index
+        const newChildren = children.slice(0, childIndex).concat(user, children.slice(childIndex + 1));
+
+        setItem({ ...item, children: newChildren });
+    };
 
 
     return (
@@ -104,7 +98,7 @@ const UserRow = ({user, setUsers, level, onValidate}) => {
                         className={'py-[11px] px-[21px] font-medium text-xs h-fit whitespace-nowrap mb-5'}/>
             </div>
             {item.children && item.children.map((child, index) => {
-                return <UserRow key={index} user={child} setUsers={onSetUser} level={level + 1}
+                return <UserRow key={index} index={index} user={child} setUsers={onSetUser} level={level + 1}
                                 onValidate={onValidate}/>
 
             })}

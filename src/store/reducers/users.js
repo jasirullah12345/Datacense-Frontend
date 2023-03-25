@@ -72,6 +72,7 @@ export default users.reducer;
 
 export function getAllUsers(page, limit, search) {
     return async (dispatch) => {
+        users.actions.hasError(null);
         dispatch(users.actions.setUsersLoading(true));
         try {
             const {data, totalRecords, currentPage} = (await axios.get('/users',{
@@ -94,6 +95,7 @@ export function getAllUsers(page, limit, search) {
 
 export function getGrandPa() {
     return async (dispatch) => {
+        users.actions.hasError(null);
         dispatch(users.actions.setGrandPaUsersLoading(true));
         try {
             let grandpas = (await axios.get('/users/with-children')).data.data;
@@ -115,11 +117,25 @@ export function getGrandPa() {
 
 export function getUsersWithChildrens(userId) {
     return async (dispatch) => {
+        users.actions.hasError(null);
         dispatch(users.actions.setUsersWithChildrensLoading(true));
         try {
             let userWithChildrens = (await axios.get(`/users/${userId}/populated-children`)).data.data;
 
             dispatch(users.actions.setUsersWithChildrens(userWithChildrens));
+        } catch (error) {
+            dispatch(users.actions.hasError(error));
+        }
+        dispatch(users.actions.setUsersWithChildrensLoading(false));
+    };
+}
+
+export function createUsers(user) {
+    return async (dispatch) => {
+        users.actions.hasError(null);
+        dispatch(users.actions.setUsersWithChildrensLoading(true));
+        try {
+            await axios.post(`/users`,{user});
         } catch (error) {
             dispatch(users.actions.hasError(error));
         }
