@@ -15,7 +15,6 @@ const UserRow = ({user, setUsers, level, onValidate}) => {
     const validationRef = useRef(null);
 
     const validate = () => {
-        console.log('validate', item)
         let isValid = true;
         let newErrors = {
             id: '',
@@ -53,12 +52,20 @@ const UserRow = ({user, setUsers, level, onValidate}) => {
     };
 
     useEffect(() => {
+        setItem(user);
+    }, [user]);
+
+
+    useEffect(() => {
         validationRef.current = validate;
         onValidate(validationRef);
     }, [onValidate]);
 
     useEffect(() => {
-        setUsers(item);
+        // deep compare to avoid infinite loop
+        if (JSON.stringify(user) !== JSON.stringify(item)) {
+            setUsers(item);
+        }
     }, [item]);
 
     const addChildren = () => {
@@ -74,10 +81,12 @@ const UserRow = ({user, setUsers, level, onValidate}) => {
     }
 
     const onSetUser = (user) => {
-        const index = item.children.findIndex(child => child._id ? child._id === user._id : child.id === user.id);
-        item.children[index] = user;
-        setItem({...item});
+        const updatedChildren = item.children.map(child => {
+            return (child._id ? child._id === user._id : child.id === user.id) ? user : child;
+        });
+        setItem({...item, children: updatedChildren});
     }
+
 
     return (
         <div>
@@ -95,7 +104,8 @@ const UserRow = ({user, setUsers, level, onValidate}) => {
                         className={'py-[11px] px-[21px] font-medium text-xs h-fit whitespace-nowrap mb-5'}/>
             </div>
             {item.children && item.children.map((child, index) => {
-                return <UserRow key={index} user={child} setUsers={onSetUser} level={level + 1} onValidate={onValidate}/>
+                return <UserRow key={index} user={child} setUsers={onSetUser} level={level + 1}
+                                onValidate={onValidate}/>
 
             })}
         </div>

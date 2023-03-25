@@ -1,6 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
 import axios from "utils/axios";
-import {dispatch} from "../index";
 
 const initialState = {
     error: null,
@@ -8,6 +7,8 @@ const initialState = {
     usersLoading: false,
     grandPaUsers: [],
     grandPaUsersLoading: false,
+    usersWithChildrens: {},
+    usersWithChildrensLoading: false,
     totalRecords: 0,
     currentPage: 1,
 };
@@ -51,6 +52,16 @@ const users = createSlice({
         // SET GRANDPA USERS LOADING
         setGrandPaUsersLoading(state, action) {
             state.grandPaUsersLoading = action.payload;
+        },
+
+        // SET USERS WITH CHILDRENS
+        setUsersWithChildrens(state, action) {
+            state.usersWithChildrens = action.payload;
+        },
+
+        // SET USERS WITH CHILDRENS LOADING
+        setUsersWithChildrensLoading(state, action) {
+            state.usersWithChildrensLoading = action.payload;
         }
     }
 });
@@ -60,7 +71,7 @@ export default users.reducer;
 // ==============================|| USERS - API CALL ||============================== //
 
 export function getAllUsers(page, limit, search) {
-    return async () => {
+    return async (dispatch) => {
         dispatch(users.actions.setUsersLoading(true));
         try {
             const {data, totalRecords, currentPage} = (await axios.get('/users',{
@@ -82,7 +93,7 @@ export function getAllUsers(page, limit, search) {
 }
 
 export function getGrandPa() {
-    return async () => {
+    return async (dispatch) => {
         dispatch(users.actions.setGrandPaUsersLoading(true));
         try {
             let grandpas = (await axios.get('/users/with-children')).data.data;
@@ -99,5 +110,19 @@ export function getGrandPa() {
             dispatch(users.actions.hasError(error));
         }
         dispatch(users.actions.setGrandPaUsersLoading(false));
+    };
+}
+
+export function getUsersWithChildrens(userId) {
+    return async (dispatch) => {
+        dispatch(users.actions.setUsersWithChildrensLoading(true));
+        try {
+            let userWithChildrens = (await axios.get(`/users/${userId}/populated-children`)).data.data;
+
+            dispatch(users.actions.setUsersWithChildrens(userWithChildrens));
+        } catch (error) {
+            dispatch(users.actions.hasError(error));
+        }
+        dispatch(users.actions.setUsersWithChildrensLoading(false));
     };
 }
